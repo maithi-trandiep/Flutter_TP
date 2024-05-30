@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tp_flutter/choice_item.dart';
+import 'package:tp_flutter/tag_detail_page.dart';
+
+import 'core/models/Tag.dart';
 
 class Header extends StatelessWidget {
-  final List<String> selectedChoices;
+  final List<Tag> selectedChoices;
   final Color color;
 
   const Header({super.key, required this.selectedChoices, required this.color});
@@ -34,9 +37,19 @@ class Header extends StatelessWidget {
                 for (var choice in selectedChoices)
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
-                    child: ChoiceItem(
-                      choice: choice,
-                      isClickable: false,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TagDetailPage(tag: choice),
+                          ),
+                        );
+                      },
+                      child: ChoiceItem(
+                        choice: choice,
+                        isClickable: false,
+                      ),
                     ),
                   )
               ],

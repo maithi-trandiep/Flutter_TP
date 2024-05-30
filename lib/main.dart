@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tp_flutter/header.dart';
 import 'package:tp_flutter/footer.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'core/models/Tag.dart';
+import 'core/services/api_services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        home: MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
@@ -26,14 +28,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> selectedChoices = [];
+  List<Tag> selectedChoices = [];
   Color headerColor = Colors.purple;
+  late Future<List<Tag>> listTags;
 
   void changeColor(Color color) => setState(() {
     headerColor = color;
   });
 
-  void changeChoice(String choice) {
+  void changeChoice(Tag choice) {
     setState(() {
       if (selectedChoices.contains(choice)) {
         selectedChoices.remove(choice);
@@ -41,6 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedChoices.add(choice);
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    listTags = ApiServices.getTags();
   }
 
   @override
@@ -57,9 +66,29 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
             flex: 1,
-            child: Footer(
-                choices: const ['cinema', 'petanque', 'fitness', 'League Of Legend', 'basket', 'shopping', 'programmation'],
-                onSelect: changeChoice,
+            child: FutureBuilder<List<Tag>>(
+              future: listTags,
+              builder: (context, snapshot) {
+                final isLoading = snapshot.connectionState == ConnectionState.waiting;
+                if (isLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(snapshot.error!.toString()),
+                    );
+                  }
+
+                  if (snapshot.hasData) {
+                    return Footer(
+                      choices: snapshot.data!,
+                      onSelect: changeChoice,
+                    );
+                  }
+
+                  return const SizedBox();
+                }
+              },
             ),
           )
         ],

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tp_flutter/choice_item.dart';
+import 'core/models/Tag.dart';
+
 
 class Footer extends StatelessWidget {
-  final List<String> choices;
-  final ValueChanged<String> onSelect;
+  final List<Tag> choices;
+  final ValueChanged<Tag> onSelect;
 
   const Footer({super.key, required this.choices, required this.onSelect});
 
@@ -15,7 +17,7 @@ class Footer extends StatelessWidget {
         child: Wrap(
           spacing: 8,
           runSpacing: 6,
-          children: choices.map((String choice) => ChoiceItem(
+          children: choices.map((Tag choice) => ChoiceItem(
             choice: choice,
             onSelect: () => onSelect(choice),
             isClickable: true,

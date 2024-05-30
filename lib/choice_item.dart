@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tp_flutter/core/models/Tag.dart';
 
 class ChoiceItem extends StatelessWidget {
-  final String choice;
+  final Tag choice;
   final VoidCallback? onSelect;
   final bool isClickable;
 
@@ -24,7 +25,7 @@ class ChoiceItem extends StatelessWidget {
           ],
         ),
         child: Text(
-          choice,
+          choice.title,
           style: const TextStyle(
             fontSize: 16,
           ),
