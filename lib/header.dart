@@ -17,16 +17,16 @@ class Header extends StatelessWidget {
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 8, left: 8, bottom: 8),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Vos choix :',
-                    style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
+          child: Column(
+            children: [
+              const Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Vos choix :',
+                  style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
                 ),
+              ),
+              if (selectedChoices.isEmpty)
                 const Align(
                   alignment: Alignment.topLeft,
                   child: Text(
@@ -34,8 +34,11 @@ class Header extends StatelessWidget {
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
-                for (var choice in selectedChoices)
-                  Padding(
+              SingleChildScrollView(
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 6,
+                  children: selectedChoices.map((Tag choice) => Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: GestureDetector(
                       onTap: () {
@@ -51,9 +54,10 @@ class Header extends StatelessWidget {
                         isClickable: false,
                       ),
                     ),
-                  )
-              ],
-            ),
+                  )).toList(),
+                ),
+              ),
+            ],
           ),
         ),
       ),

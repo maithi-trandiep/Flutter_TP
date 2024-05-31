@@ -5,8 +5,9 @@ class ChoiceItem extends StatelessWidget {
   final Tag choice;
   final VoidCallback? onSelect;
   final bool isClickable;
+  final bool isSelected;
 
-  const ChoiceItem({super.key, required this.choice, this.onSelect, required this.isClickable});
+  const ChoiceItem({super.key, required this.choice, this.onSelect, required this.isClickable, this.isSelected = false});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class ChoiceItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          color: Colors.grey[300],
+          color: isSelected ? Colors.orangeAccent : Colors.grey[300],
           borderRadius: BorderRadius.circular(12),
           boxShadow: const [
             BoxShadow(

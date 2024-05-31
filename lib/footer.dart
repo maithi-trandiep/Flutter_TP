@@ -5,9 +5,10 @@ import 'core/models/Tag.dart';
 
 class Footer extends StatelessWidget {
   final List<Tag> choices;
+  final List<Tag> selectedChoices;
   final ValueChanged<Tag> onSelect;
 
-  const Footer({super.key, required this.choices, required this.onSelect});
+  const Footer({super.key, required this.choices, required this.selectedChoices, required this.onSelect});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class Footer extends StatelessWidget {
             choice: choice,
             onSelect: () => onSelect(choice),
             isClickable: true,
+            isSelected: selectedChoices.contains(choice),
           )).toList(),
         ),
       ),

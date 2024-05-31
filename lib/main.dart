@@ -83,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     return Footer(
                       choices: snapshot.data!,
                       onSelect: changeChoice,
+                      selectedChoices: selectedChoices,
                     );
                   }
 
