@@ -18,23 +18,19 @@ class Header extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 8, left: 8, bottom: 8),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'Vos choix :',
-                  style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-                ),
+              const Text(
+                'Vos choix :',
+                style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
               ),
               if (selectedChoices.isEmpty)
-                const Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Cliquez sur les choix en dessous !',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
+                const Text(
+                  'Cliquez sur les choix en dessous !',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
-              SingleChildScrollView(
+              Align(
+                alignment: Alignment.topLeft,
                 child: Wrap(
                   spacing: 8,
                   runSpacing: 6,
